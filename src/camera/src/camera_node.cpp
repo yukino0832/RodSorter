@@ -117,25 +117,15 @@ void CameraNode::PixelToBaseCallback(const std::shared_ptr<interfaces::srv::Pixe
 
     cv::Mat transform = cv::Mat::zeros(cv::Size(3, 2), CV_64FC1);
 
-    // 第一张图片的坐标变换矩阵
-    if (request->frame_id == 1) {
-        transform.ptr<double>(0)[0] = 0.4984147829632819;
-        transform.ptr<double>(0)[1] = 0.002744070503315559;
-        transform.ptr<double>(0)[2] = -3.488111826623243;
-        transform.ptr<double>(1)[0] = 0.004643768148017612;
-        transform.ptr<double>(1)[1] = -0.5030440715094449;
-        transform.ptr<double>(1)[2] = 515.8664424125985;
-    }
-    // 第二张图片的坐标变换矩阵
-    else
-    {
-        transform.ptr<double>(0)[0] = 0.4916275653434861;
-        transform.ptr<double>(0)[1] = 0.002860792687711371;
-        transform.ptr<double>(0)[2] = -7.044738353206755;
-        transform.ptr<double>(1)[0] = 0.00886599482137391;
-        transform.ptr<double>(1)[1] = -0.4912440193672089;
-        transform.ptr<double>(1)[2] = 16.43901178123831;
-    }
+    ////////////////////////////////////////////////////////////////////////
+    // 待改
+    ////////////////////////////////////////////////////////////////////////
+    transform.ptr<double>(0)[0] = 0.4984147829632819;
+    transform.ptr<double>(0)[1] = 0.002744070503315559;
+    transform.ptr<double>(0)[2] = -3.488111826623243;
+    transform.ptr<double>(1)[0] = 0.004643768148017612;
+    transform.ptr<double>(1)[1] = -0.5030440715094449;
+    transform.ptr<double>(1)[2] = 515.8664424125985;
 
     cv::Mat pos = transform * cv::Mat(cv::Vec3d(request->pixel_x, request->pixel_y, 1), CV_64F);
 

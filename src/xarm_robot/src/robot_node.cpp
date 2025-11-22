@@ -39,7 +39,6 @@ void XarmNode::ArmInit() {
     }
 
     this->xarm_->set_state(0);
-    this->SuckerEnable(0);
     this->xarm_->set_tcp_jerk(8000);
     
 
@@ -241,89 +240,6 @@ void XarmNode::GetTetrisCallback(const std::shared_ptr<interfaces::srv::GetTetri
 
 
 void XarmNode::PutTetrisCallback(const std::shared_ptr<interfaces::srv::PutTetris::Request> request, std::shared_ptr<interfaces::srv::PutTetris::Response> response) {
-    // // robot.ResetAllError();
-
-    // RCLCPP_INFO(this->get_logger(), "开始放方块");
-    // //添加旋转角度
-    // if (request->rotate_angle > M_PI || request->rotate_angle < -M_PI) {
-    //     RCLCPP_ERROR(this->get_logger(), "传入旋转角度并非弧度制");
-    //     response->result = 0;
-    //     return;
-    // }
-
-    // fp32 dist_Pos[6]={0}, now_Pos[6]={0};
-
-    // int ret = xarm_->get_position(now_Pos);
-    // if (ret) {
-    //     RCLCPP_ERROR(this->get_logger(), "获取TCP位置失败");
-    //     response->result = 0;
-    //     return;
-    // }
-    // RCLCPP_INFO(this->get_logger(), "获取TCP位置成功");
-
-    // cv::Mat transform2 = cv::Mat::zeros(cv::Size(3, 2), CV_64FC1);
-    // transform2.ptr<double>(0)[0] = -0.2062832358104908;
-    // transform2.ptr<double>(0)[1] = -19.94396139630496;
-    // transform2.ptr<double>(0)[2] = 609.8278690413255;
-    // transform2.ptr<double>(1)[0] = -20.11229479899172;
-    // transform2.ptr<double>(1)[1] = 0.09488184996477254;
-    // transform2.ptr<double>(1)[2] = 89.35235926992209;
-
-    // cv::Mat posend = transform2 * cv::Mat(cv::Vec3d(request->x, request->y, 1), CV_64F);
-
-    // dist_Pos[0] = posend.at<double>(0, 0);
-    // dist_Pos[1] = posend.at<double>(0, 1);
-    // dist_Pos[2] = 183;
-    // dist_Pos[3] = now_Pos[3];
-    // dist_Pos[4] = now_Pos[4];
-    // dist_Pos[5] = now_Pos[5];
-
-    // // if (dist_Pos[0] > 530.8) {
-    // // dist_Pos[1] -= 1;
-    // // }
-    // // if (dist_Pos[0] > 446.6) {
-    // //     dist_Pos[1] -= 2.5;
-    // //     dist_Pos[0] += 1;
-    // // }
-
-    // // if ((522.2 > dist_Pos[0] > 492.6) && (-100.3 < dist_Pos[1] < -82.8)) {
-    // //     dist_Pos[1] += 2;
-    // // }
-
-    // // if ((473.5 > dist_Pos[0] > 459.3) && (-76.1 < dist_Pos[1] < -59.1)) {
-    // //     dist_Pos[0] -= 2;
-    // // }
-    // if (request->rotate_angle >= 0) {
-    //     // 以0度为起点，顺时针旋转
-    //     serve.Forward(request->rotate_angle);
-    // } else {
-    //     // 以180度为起点，逆时针旋转
-    //     serve.Backward(-request->rotate_angle);
-    // }
-    // dist_Pos[0] += request->bias_x;
-    // dist_Pos[1] += request->bias_y;
-    // RCLCPP_WARN(this->get_logger(), "TCP目标值x=%f, y=%f, z=%f", dist_Pos[0], dist_Pos[1], dist_Pos[2]);
-
-    // // MoveSpline(dist_Pos, 450,20);
-    // int err = this->xarm_->set_position(dist_Pos, 0, 2500, 40000, 0, true, NO_TIMEOUT, false, 1);
-    // if (err) {
-    //     RCLCPP_WARN(this->get_logger(), "放置运动失败，错误码：%d", err);
-    // }
-
-    // // std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-    // MoveDown(43.5);
-    // std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    // // std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    // // std::this_thread::sleep_for(std::chrono::seconds(2));
-    // SuckerEnable(0);
-    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    // // MoveDown(-10 );
-    // // Reset_in_Moving(0);
-
-    // response->result = 1;
-    // RCLCPP_WARN(this->get_logger(), "放方块成功");
-    // // return;
     RCLCPP_INFO(this->get_logger(), "开始放方块");
     if (request->put_id == 0) {
         int err = this->xarm_->set_servo_angle(this->put_joint_pose, 300, 200, 0, true, NO_TIMEOUT, -1, false);

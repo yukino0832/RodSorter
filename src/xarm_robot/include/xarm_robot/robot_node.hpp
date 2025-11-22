@@ -306,6 +306,8 @@ private:
     bool first_get_flag = false;  //用于记录是否为第一次抓取的标志位，第一次抓取直接点对点，第二次之后全用movespline实现自定义轨迹
     bool using_joint = false;
 
+    float put_joint_pose[7]; //放置连杆关节角度
+    float second_put_joint_pose[7]; //放置连杆第二关节角度
 
     std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
